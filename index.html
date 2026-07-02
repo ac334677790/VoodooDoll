@@ -1,1 +1,1187 @@
 
+<!DOCTYPE html>
+<html lang="zh-TW" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太上解厄・線上扎小人與怨氣轉化符咒壇</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        .font-taoist {
+            font-family: 'Ma Shan Zheng', cursive, 'Noto Serif TC', serif;
+        }
+        .font-classical {
+            font-family: 'Noto Serif TC', serif;
+        }
+        /* 蠟燭火焰動畫 */
+        @keyframes flame-flicker {
+            0%, 100% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+            50% { transform: scale(1.1) rotate(3deg); opacity: 1; filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8)); }
+        }
+        .flame-active {
+            animation: flame-flicker 0.15s infinite alternate;
+        }
+        /* 煙霧飄散動畫 */
+        @keyframes incense-smoke {
+            0% { transform: translateY(0) scaleX(1) translateX(0); opacity: 0; }
+            10% { opacity: 0.4; }
+            50% { transform: translateY(-80px) scaleX(1.5) translateX(-10px); opacity: 0.2; }
+            100% { transform: translateY(-180px) scaleX(2) translateX(15px); opacity: 0; }
+        }
+        .smoke-particle {
+            animation: incense-smoke 4s infinite linear;
+        }
+        /* 草人晃動 */
+        @keyframes shake-doll {
+            0%, 100% { transform: rotate(0deg); }
+            20% { transform: rotate(-8deg) translateX(-5px); }
+            40% { transform: rotate(6deg) translateX(4px); }
+            60% { transform: rotate(-4deg) translateX(-3px); }
+            80% { transform: rotate(3deg) translateX(2px); }
+        }
+        .doll-shake {
+            animation: shake-doll 0.4s ease-in-out;
+        }
+        /* 符咒發光 */
+        @keyframes glow-gold {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.4)); }
+            50% { filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.9)); }
+        }
+        .talisman-glow {
+            animation: glow-gold 3s infinite ease-in-out;
+        }
+        /* 隱藏滾動條但保持功能 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* 灰燼飄散動畫 */
+        @keyframes ash-float {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+        .ash-particle {
+            position: absolute;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: ash-float 3s linear forwards;
+        }
+    </style>
+</head>
+<body class="bg-[#0c0a09] text-stone-200 font-classical min-h-full flex flex-col justify-between overflow-x-hidden relative">
+
+<!-- 玄學背景煙霧/光效 -->
+<div class="absolute inset-0 bg-radial-[circle_at_center] from-red-950/20 via-[#0c0a09] to-[#050404] pointer-events-none z-0"></div>
+<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(rgba(245,158,11,0.02)_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+
+<!-- 頂部導覽列 -->
+<header class="border-b border-stone-800/60 bg-[#0e0c0b]/80 backdrop-blur-md relative z-10 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <span class="text-2xl">🏮</span>
+            <div>
+                <h1 class="text-xl font-bold tracking-wider text-amber-500 font-taoist">太上解厄神壇</h1>
+                <p class="text-xs text-stone-500 tracking-widest">怨氣轉化・線上扎草人符咒法會</p>
+            </div>
+        </div>
+        <!-- 音效控制器與重置按鈕 -->
+        <div class="flex items-center space-x-3">
+            <button id="btn-sound" class="p-2 rounded-lg bg-stone-900 border border-stone-800 hover:border-amber-600 transition-colors" title="切換音效">
+                <span id="sound-icon">🔊</span>
+            </button>
+            <span class="text-xs px-2 py-1 bg-amber-950/40 text-amber-400 border border-amber-900/50 rounded-md font-mono">
+                天官賜福 百無禁忌
+            </span>
+        </div>
+    </div>
+</header>
+
+<!-- 主操作區 -->
+<main class="flex-grow max-w-6xl w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+
+    <!-- 左側：輸入怨念與設定符咒 (4格) -->
+    <section class="lg:col-span-4 bg-[#0f0d0c] border border-stone-800/80 rounded-xl p-5 shadow-2xl flex flex-col justify-between relative">
+        <!-- 蠟燭氛圍燈 (左上角) -->
+        <div class="absolute -top-3 -left-3 flex flex-col items-center">
+            <div class="w-3 h-10 bg-red-700 rounded-b-sm border-t-2 border-amber-400 relative shadow-lg">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-2 h-4 bg-orange-500 rounded-full flame-active origin-bottom"></div>
+            </div>
+            <div class="text-[9px] text-stone-600 mt-1 font-mono">解厄燭</div>
+        </div>
+
+        <div>
+            <div class="border-b border-stone-800 pb-3 mb-5 mt-2 flex justify-between items-center">
+                <h2 class="text-lg font-bold text-amber-500 tracking-wider flex items-center gap-2">
+                    <span>✍️</span> 登記冤親債主
+                </h2>
+                <span class="text-xs text-stone-500">第一步：注靈</span>
+            </div>
+
+            <!-- 快速範本 -->
+            <div class="mb-5">
+                <label class="block text-xs text-stone-400 mb-2">快速召喚經典怨念源：</label>
+                <div class="grid grid-cols-2 gap-2" id="preset-container">
+                    <!-- 預設範本按鈕將由JS渲染 -->
+                </div>
+            </div>
+
+            <!-- 手動輸入表單 -->
+            <div class="space-y-4">
+                <div>
+                    <label for="villain-name" class="block text-sm font-semibold text-stone-300 mb-1 flex justify-between">
+                        <span>小人名諱 / 厄運事件</span>
+                        <span class="text-xs text-stone-500">（必填）</span>
+                    </label>
+                    <input type="text" id="villain-name" maxlength="10" placeholder="例：無良主管、水逆、窮神..." 
+                           class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-2 text-amber-100 placeholder-stone-600 focus:outline-none focus:border-amber-500 transition-colors">
+                </div>
+
+                <div>
+                    <label for="curse-desc" class="block text-sm font-semibold text-stone-300 mb-1 flex justify-between">
+                        <span>具體怨念 / 退散訴求</span>
+                        <span class="text-xs text-stone-500">（選填，限30字）</span>
+                    </label>
+                    <textarea id="curse-desc" rows="3" maxlength="30" placeholder="例：沒事瞎指揮、搶功勞、甩鍋、諸事不順退散..." 
+                              class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3 py-2 text-stone-300 placeholder-stone-600 focus:outline-none focus:border-amber-500 transition-colors resize-none"></textarea>
+                </div>
+            </div>
+
+            <!-- 法效設定 -->
+            <div class="mt-5 p-3 bg-stone-950/50 rounded-lg border border-stone-900">
+                <span class="block text-xs text-amber-500/80 font-bold mb-2">✦ 附加加持法力</span>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="flex items-center space-x-2 text-xs text-stone-400 cursor-pointer">
+                        <input type="checkbox" id="effect-thunder" checked class="accent-amber-500">
+                        <span>九天應元雷霆</span>
+                    </label>
+                    <label class="flex items-center space-x-2 text-xs text-stone-400 cursor-pointer">
+                        <input type="checkbox" id="effect-gold" checked class="accent-amber-500">
+                        <span>金光神咒護體</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-stone-800/60">
+            <button id="btn-generate" class="w-full py-3 bg-gradient-to-r from-red-950 to-amber-950 hover:from-red-900 hover:to-amber-900 border border-amber-800/60 hover:border-amber-500 text-amber-300 font-bold tracking-widest rounded-lg shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
+                <span>⚡</span> 敕令・起符！
+            </button>
+            <p class="text-[10px] text-stone-500 text-center mt-2">將惡念轉化為靈符，以正氣克制邪佞</p>
+        </div>
+    </section>
+
+    <!-- 中間：動態符咒神壇 (4格) -->
+    <section class="lg:col-span-4 bg-[#0f0d0c] border border-stone-800/80 rounded-xl p-5 shadow-2xl flex flex-col justify-between items-center relative overflow-hidden">
+        
+        <!-- 背景八卦水波裝飾 -->
+        <div class="absolute -bottom-16 -right-16 text-stone-950/15 pointer-events-none select-none text-9xl font-bold">☯️</div>
+
+        <div class="w-full border-b border-stone-800 pb-3 mb-4 flex justify-between items-center z-10">
+            <h2 class="text-lg font-bold text-amber-500 tracking-wider flex items-center gap-2">
+                <span>📜</span> 太清法籙符咒
+            </h2>
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs text-stone-500" id="talisman-status">待起符</span>
+            </div>
+        </div>
+
+        <!-- 符咒展示容器 (黃紙) -->
+        <div class="w-full flex-grow flex items-center justify-center py-2 z-10 relative">
+            
+            <!-- 紙張本體 -->
+            <div id="talisman-paper" class="w-[240px] h-[380px] bg-[#f9db6d] rounded-sm shadow-2xl border-2 border-[#e3bf4a] relative p-4 flex flex-col justify-between items-center transition-all duration-500 scale-95 opacity-50 select-none">
+                <!-- 符咒頂部三清記號 (手繪線條) -->
+                <div class="w-full flex justify-center gap-3 text-red-700 font-bold text-lg leading-none pt-1">
+                    <span>📿</span><span>☯️</span><span>📿</span>
+                </div>
+
+                <!-- 符頭：敕令 -->
+                <div class="text-red-700 font-taoist text-3xl font-bold tracking-tighter mt-1">
+                    敕令
+                </div>
+
+                <!-- 符腹：動態詛咒/退散內容 (直排) -->
+                <div class="flex-grow flex flex-col items-center justify-center w-full my-1">
+                    <!-- 裝飾邊框 -->
+                    <div class="border-l border-r border-red-700/40 px-3 py-1 flex flex-col items-center max-h-[220px] overflow-hidden">
+                        <span class="text-stone-900 font-taoist text-xl font-bold tracking-widest text-center" id="talisman-target">小人名字</span>
+                        <!-- 閃電或咒文線條 -->
+                        <div class="w-0.5 h-6 bg-red-700 my-1"></div>
+                        <span class="text-red-700 font-taoist text-md font-bold leading-5 text-center px-1" id="talisman-desc" style="writing-mode: vertical-rl;">
+                            怨念消除 厄運退散
+                        </span>
+                        <div class="w-0.5 h-6 bg-red-700 my-1"></div>
+                        <span class="text-stone-900 font-bold font-taoist text-sm tracking-wider mt-1">急急如律令</span>
+                    </div>
+                </div>
+
+                <!-- 符膽 (極限收尾線) -->
+                <div class="w-12 h-10 border-t-2 border-red-700 relative flex justify-center items-center">
+                    <svg class="w-10 h-8 text-red-700" viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="4">
+                        <path d="M10,10 C40,40 20,70 50,50 C80,30 60,70 90,70" />
+                    </svg>
+                    <!-- 紅印章 (蓋印效果) -->
+                    <div id="red-seal" class="absolute -right-2 -bottom-2 w-14 h-14 border-4 border-red-600/90 flex items-center justify-center text-red-600/90 font-bold text-[10px] transform rotate-12 rounded-sm bg-amber-200/40 select-none pointer-events-none opacity-0 transition-all duration-300 scale-150">
+                        <span class="font-taoist leading-tight text-center font-black">太上<br>印信</span>
+                    </div>
+                </div>
+
+                <!-- 符咒周邊金色粒子光芒 (僅在起符完成後) -->
+                <div class="absolute inset-0 border border-amber-400/0 rounded-sm pointer-events-none" id="talisman-glow-border"></div>
+            </div>
+
+            <!-- 還沒起符的提示罩 -->
+            <div id="talisman-overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-stone-950/80 rounded-xl border border-dashed border-stone-800 p-6 text-center z-20 transition-all duration-500">
+                <span class="text-4xl mb-3 animate-pulse">📜</span>
+                <p class="text-sm font-bold text-amber-500">案前未設靈符</p>
+                <p class="text-xs text-stone-500 mt-2">請先於左側輸入「名諱與怨念」，並點擊「敕令・起符」將符咒顯影！</p>
+            </div>
+        </div>
+
+        <!-- 敕封蓋印按鈕 -->
+        <div class="w-full z-10 mt-3">
+            <button id="btn-stamp" disabled class="w-full py-2 bg-stone-900 hover:bg-stone-800 disabled:opacity-40 disabled:cursor-not-allowed border border-stone-800 text-stone-400 hover:text-red-400 rounded-lg font-bold text-sm tracking-wider transition-all flex items-center justify-center gap-2">
+                <span>🏮</span> 蓋天尊印・敕封靈力
+            </button>
+        </div>
+    </section>
+
+    <!-- 右側：替身草人與針扎解怨 (4格) -->
+    <section class="lg:col-span-4 bg-[#0f0d0c] border border-stone-800/80 rounded-xl p-5 shadow-2xl flex flex-col justify-between items-center relative overflow-hidden">
+        
+        <div class="w-full border-b border-stone-800 pb-3 mb-4 flex justify-between items-center z-10">
+            <h2 class="text-lg font-bold text-amber-500 tracking-wider flex items-center gap-2">
+                <span>🌾</span> 扎草人・散怨氣
+            </h2>
+            <div class="flex items-center gap-1.5 bg-stone-950 px-2 py-0.5 rounded border border-stone-800">
+                <span class="text-xs text-stone-500">怨力值:</span>
+                <span class="text-xs font-mono font-bold text-red-500" id="anger-count">0</span>
+                <span class="text-xs text-stone-500">/ 15</span>
+            </div>
+        </div>
+
+        <!-- 香爐裝飾 & 煙霧 -->
+        <div class="absolute top-16 left-6 pointer-events-none select-none z-10 flex flex-col items-center">
+            <div class="w-8 h-8 rounded-full bg-stone-800 border-2 border-stone-700 flex items-center justify-center relative">
+                <!-- 三炷香 -->
+                <div class="absolute -top-6 left-2 w-0.5 h-6 bg-amber-900">
+                    <div class="absolute top-0 left-0 w-0.5 h-0.5 bg-red-500 rounded-full animate-ping"></div>
+                </div>
+                <div class="absolute -top-7 left-4 w-0.5 h-7 bg-amber-900">
+                    <div class="absolute top-0 left-0 w-0.5 h-0.5 bg-red-500 rounded-full animate-ping"></div>
+                </div>
+                <div class="absolute -top-6 left-6 w-0.5 h-6 bg-amber-900">
+                    <div class="absolute top-0 left-0 w-0.5 h-0.5 bg-red-500 rounded-full animate-ping"></div>
+                </div>
+                <!-- 煙霧 -->
+                <div class="absolute -top-16 left-4 text-xs text-stone-500/30 font-taoist smoke-particle">💨</div>
+                <div class="absolute -top-20 left-3 text-xs text-stone-500/20 font-taoist smoke-particle" style="animation-delay: 1.5s;">💨</div>
+            </div>
+            <span class="text-[8px] text-stone-600 mt-1">清香化冤</span>
+        </div>
+
+        <!-- 針扎點擊操作面板 -->
+        <div class="w-full flex-grow flex flex-col items-center justify-center relative py-2">
+            
+            <!-- 鎖定提示：需先起符並蓋章 -->
+            <div id="doll-lock-overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-stone-950/85 rounded-xl border border-dashed border-stone-800 p-6 text-center z-20 transition-all duration-500">
+                <span class="text-4xl mb-3">🌾</span>
+                <p class="text-sm font-bold text-amber-500">替身法體未顯</p>
+                <p class="text-xs text-stone-500 mt-2">請先完成「起符」並「蓋天尊印」，方可對替身草人進行針扎、洩除怨氣！</p>
+            </div>
+
+            <!-- 草人本體 (SVG) -->
+            <div id="straw-doll-container" class="relative w-[220px] h-[320px] flex items-center justify-center cursor-crosshair select-none">
+                
+                <!-- 稻草人 SVG -->
+                <svg id="straw-doll" class="w-full h-full text-amber-900/80 drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)] transition-transform duration-100" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 頭部 -->
+                    <circle cx="100" cy="65" r="28" fill="#d2b48c" stroke="#8b5a2b" stroke-width="3" />
+                    <!-- 頭部綁繩十字 -->
+                    <path d="M100,37 L100,93 M72,65 L128,65" stroke="#4a2e16" stroke-width="1.5" stroke-dasharray="3,3" />
+                    <!-- 眼睛 (叉叉) -->
+                    <path d="M88,58 L96,66 M96,58 L88,66" stroke="#4a2e16" stroke-width="2.5" />
+                    <path d="M104,58 L112,66 M112,58 L104,66" stroke="#4a2e16" stroke-width="2.5" />
+                    <!-- 嘴巴 -->
+                    <path d="M92,80 Q100,74 108,80" stroke="#4a2e16" stroke-width="2.5" fill="none" />
+                    
+                    <!-- 身體/軀幹 -->
+                    <path d="M100,93 L100,210" stroke="#8b5a2b" stroke-width="16" stroke-linecap="round" />
+                    <path d="M100,93 L100,210" stroke="#d2b48c" stroke-width="10" stroke-linecap="round" />
+                    
+                    <!-- 左右手臂 -->
+                    <path d="M40,120 L160,120" stroke="#8b5a2b" stroke-width="12" stroke-linecap="round" />
+                    <path d="M40,120 L160,120" stroke="#d2b48c" stroke-width="7" stroke-linecap="round" />
+                    <!-- 手腕綁線 -->
+                    <circle cx="50" cy="120" r="5" fill="#a72b2b" />
+                    <circle cx="150" cy="120" r="5" fill="#a72b2b" />
+                    
+                    <!-- 左右大腿/下肢 -->
+                    <path d="M100,200 L70,270" stroke="#8b5a2b" stroke-width="12" stroke-linecap="round" />
+                    <path d="M100,200 L70,270" stroke="#d2b48c" stroke-width="7" stroke-linecap="round" />
+                    <path d="M100,200 L130,270" stroke="#8b5a2b" stroke-width="12" stroke-linecap="round" />
+                    <path d="M100,200 L130,270" stroke="#d2b48c" stroke-width="7" stroke-linecap="round" />
+                    <!-- 腳踝綁線 -->
+                    <circle cx="75" cy="260" r="5" fill="#a72b2b" />
+                    <circle cx="125" cy="260" r="5" fill="#a72b2b" />
+
+                    <!-- 貼在草人身上的靈符縮影 -->
+                    <g transform="translate(85, 110) scale(0.6)">
+                        <rect x="0" y="0" width="50" height="80" rx="2" fill="#f9db6d" stroke="#e3bf4a" stroke-width="1" />
+                        <line x1="25" y1="5" x2="25" y2="75" stroke="#a72b2b" stroke-width="1.5" stroke-dasharray="2,2" />
+                        <!-- 寫著 邪 或者是 厄 -->
+                        <text x="25" y="45" fill="#a72b2b" font-size="28" font-family="'Ma Shan Zheng'" text-anchor="middle" dominant-baseline="middle">厄</text>
+                    </g>
+                </svg>
+
+                <!-- 動態生成的「針」元件渲染層 -->
+                <div id="needles-layer" class="absolute inset-0 pointer-events-none"></div>
+
+                <!-- 浮動文字特效層 -->
+                <div id="effects-layer" class="absolute inset-0 pointer-events-none"></div>
+            </div>
+            
+            <!-- 提示操作 -->
+            <p class="text-xs text-stone-500 mt-2 text-center" id="doll-tip">
+                💡 點擊草人任意部位，即可用針刺破小人怨念 (有聲音效)
+            </p>
+        </div>
+
+        <!-- 虛擬焚化/化符解怨 -->
+        <div class="w-full z-10 mt-3 flex gap-2">
+            <button id="btn-burn" disabled class="flex-grow py-3 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 disabled:opacity-40 disabled:cursor-not-allowed border border-red-500 text-white font-bold rounded-lg shadow-lg shadow-red-950/20 hover:shadow-red-500/15 active:scale-95 transition-all flex items-center justify-center gap-2">
+                <span>🔥</span> 化火焚燒・怨氣散盡
+            </button>
+        </div>
+    </section>
+
+</main>
+
+<!-- 虛擬焚化火光與粒子全螢幕特效層 -->
+<div id="burn-overlay" class="fixed inset-0 bg-[#0c0a09]/95 z-50 flex flex-col items-center justify-center hidden">
+    <!-- 火燄特效容器 -->
+    <div class="relative w-full max-w-md h-[400px] flex items-center justify-center">
+        <!-- 粒子 Canvas -->
+        <canvas id="fire-canvas" class="absolute inset-0 w-full h-full"></canvas>
+        
+        <!-- 被焚燒中的符咒與草人 -->
+        <div id="burning-elements" class="relative z-10 flex gap-4 transition-all duration-1000">
+            <div id="burn-talisman-clone" class="w-[140px] h-[220px] bg-[#f9db6d] rounded-sm p-2 flex flex-col justify-between items-center opacity-90 shadow-2xl origin-bottom transition-all duration-1000"></div>
+            <div id="burn-doll-clone" class="w-[140px] h-[220px] opacity-90 origin-bottom transition-all duration-1000"></div>
+        </div>
+    </div>
+    <div class="text-center z-10 -mt-8">
+        <h2 class="text-2xl font-bold font-taoist text-orange-500 animate-pulse tracking-widest">太上老君急急如律令</h2>
+        <p class="text-stone-400 text-sm mt-2">正在化解世間怨懟，轉化為無上功德與平安...</p>
+        <p class="text-stone-600 text-xs mt-1" id="burn-percentage">焚燒進度：0%</p>
+    </div>
+</div>
+
+<!-- 彈出視窗：解厄靈籤 (功德圓滿) -->
+<div id="fortune-modal" class="fixed inset-0 bg-stone-950/90 z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-[#12100f] border-2 border-amber-500/60 rounded-xl p-6 max-w-sm w-full shadow-2xl relative flex flex-col items-center text-center transform scale-95 transition-all duration-300">
+        <!-- 裝飾緞帶 -->
+        <div class="absolute -top-3 bg-amber-500 text-stone-950 font-bold px-4 py-1 rounded-full text-xs tracking-widest shadow-lg">
+            ☯️ 靈丹妙籤 ☯️
+        </div>
+
+        <div class="my-6 w-full">
+            <p class="text-stone-500 text-xs tracking-widest mb-2">天官賜福・百無禁忌</p>
+            <h3 class="text-3xl font-taoist font-extrabold text-amber-500 tracking-wider mb-4" id="fortune-title">【 大吉 】</h3>
+            
+            <!-- 籤文 -->
+            <div class="bg-stone-950 border border-stone-900 rounded-lg p-4 my-4 relative">
+                <span class="absolute top-2 left-2 text-[10px] text-stone-700">第十六籤</span>
+                <span class="absolute bottom-2 right-2 text-[10px] text-stone-700">解厄殿</span>
+                
+                <p class="font-taoist text-xl text-amber-100/90 tracking-widest leading-8 py-2" id="fortune-poem">
+                    冤親債主盡消磨，<br>
+                    好運連綿福氣多。<br>
+                    從此小人皆退散，<br>
+                    前途無礙步青歌。
+                </p>
+            </div>
+
+            <!-- 解籤 -->
+            <div class="text-left space-y-2 mt-4 text-xs text-stone-400 border-t border-stone-800/80 pt-3">
+                <p id="fortune-explain"><span class="text-amber-500 font-bold">【解曰】：</span>凡事大吉，遇難呈祥。小人化為貴人，財源廣進。</p>
+                <p><span class="text-emerald-500 font-bold">【斷言】：</span>口舌自息、貴人相助、霉運消除、財運大吉。</p>
+            </div>
+        </div>
+
+        <button id="btn-close-fortune" class="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold tracking-wider rounded-lg transition-colors shadow-md active:scale-95">
+            謝恩禮畢・返回凡塵
+        </button>
+    </div>
+</div>
+
+<!-- 自訂訊息提示框 (代替 Alert) -->
+<div id="toast-msg" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-stone-900/95 border border-amber-600/40 px-6 py-3 rounded-xl shadow-2xl text-amber-400 text-sm tracking-wide z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
+    <span>⛩️</span> <span id="toast-text">提示訊息</span>
+</div>
+
+<!-- 頁尾 -->
+<footer class="border-t border-stone-900/80 bg-[#080706]/80 text-stone-600 text-center py-4 text-xs tracking-widest relative z-10">
+    <p>© 2026 太上解厄殿. 線上舒壓轉化工具. 倡導娛樂舒壓，請勿於現實中沉迷迷信.</p>
+</footer>
+
+<script>
+/**
+ * 原生網頁音效合成器 (Web Audio API)
+ * 免去外部MP3/Wav資源載入失敗的尷尬
+ */
+class SoundEngine {
+    constructor() {
+        this.ctx = null;
+        this.muted = false;
+    }
+
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+
+    toggleMute() {
+        this.muted = !this.muted;
+        return this.muted;
+    }
+
+    // 播放針刺音效 (高頻刺耳金屬摩擦 + 短促敲擊)
+    playStab() {
+        if (this.muted) return;
+        this.init();
+        const ctx = this.ctx;
+        
+        // 1. 金屬刺感 (Sine 波快速衰減)
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(2500, ctx.currentTime);
+        osc1.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.15);
+        
+        gain1.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+        
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start();
+        osc1.stop(ctx.currentTime + 0.15);
+
+        // 2. 沉悶的草人打擊聲 (低頻 Noise 或 sine 衝擊)
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(120, ctx.currentTime);
+        osc2.frequency.exponentialRampToValueAtTime(10, ctx.currentTime + 0.1);
+        
+        gain2.gain.setValueAtTime(0.5, ctx.currentTime);
+        gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+        
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.start();
+        osc2.stop(ctx.currentTime + 0.12);
+    }
+
+    // 播放木魚聲 (沉靜悠揚，消除戾氣)
+    playWoodenFish() {
+        if (this.muted) return;
+        this.init();
+        const ctx = this.ctx;
+        
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(450, ctx.currentTime + 0.08);
+        
+        // 木魚共鳴的微弱高頻泛音
+        const subOsc = ctx.createOscillator();
+        const subGain = ctx.createGain();
+        subOsc.type = 'triangle';
+        subOsc.frequency.setValueAtTime(1200, ctx.currentTime);
+        subGain.gain.setValueAtTime(0.08, ctx.currentTime);
+        subGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+        
+        gain.gain.setValueAtTime(0.6, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.18);
+        
+        osc.connect(gain);
+        subOsc.connect(subGain);
+        subGain.connect(ctx.destination);
+        gain.connect(ctx.destination);
+        
+        osc.start();
+        subOsc.start();
+        osc.stop(ctx.currentTime + 0.2);
+        subOsc.stop(ctx.currentTime + 0.2);
+    }
+
+    // 蓋章重擊音效
+    playStamp() {
+        if (this.muted) return;
+        this.init();
+        const ctx = this.ctx;
+        
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(90, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.25);
+        
+        gain.gain.setValueAtTime(0.8, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+        
+        // 加上一點摩擦聲 (白噪音)
+        const bufferSize = ctx.sampleRate * 0.15; // 0.15秒
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1;
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.12, ctx.currentTime);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+        
+        noise.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start();
+        noise.start();
+        osc.stop(ctx.currentTime + 0.3);
+        noise.stop(ctx.currentTime + 0.3);
+    }
+
+    // 烈火燃燒持續背景音效 (Pink Noise)
+    startFireBurn() {
+        if (this.muted) return null;
+        this.init();
+        const ctx = this.ctx;
+        
+        // 生成持續的燃燒劈啪聲
+        const bufferSize = ctx.sampleRate * 3; // 3秒迴圈
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            // 過濾成粉紅/棕色噪音 (低頻感更重)
+            data[i] = (lastOut + (0.02 * white)) / 1.02;
+            lastOut = data[i];
+            data[i] *= 3.5; // 增益
+        }
+        
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.loop = true;
+        
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        
+        source.connect(gain);
+        gain.connect(ctx.destination);
+        
+        source.start();
+        
+        return { source, gain };
+    }
+}
+
+const SE = new SoundEngine();
+</script>
+
+<script>
+// 應用程式狀態管理
+const STATE = {
+    villainName: '',
+    curseDesc: '',
+    hasTalisman: false,
+    isStamped: false,
+    angerCount: 0,
+    maxAnger: 15,
+    needles: [], // 已針扎的座標
+    muted: false
+};
+
+// 經典怨念範本數據
+const PRESETS = [
+    { name: "無良主管", desc: "畫大餅退散，瞎指揮退散，立刻加薪" },
+    { name: "雙面小人", desc: "暗算現形，甩鍋退散，遠離是非口舌" },
+    { name: "吸血甲方", desc: "預算翻倍，爽快結案，改稿退散" },
+    { name: "水逆霉運", desc: "諸事順心，好運連連，水逆急速退散" },
+    { name: "窮鬼附身", desc: "財源廣進，暴富暴美，帳單全免" },
+    { name: "期末大魔王", desc: "歐趴不掛科，高分通關，教授佛心" }
+];
+
+// 靈籤數據庫 (解厄後的舒壓籤詩)
+const FORTUNES = [
+    {
+        title: "【 上上大吉 】",
+        poem: "災星退位吉星臨，<br>萬事如意順人心。<br>小人遠避貴人近，<br>財源廣進福祿深。",
+        explain: "此籤代表怨氣消解，前路光明。你討厭的人將會因各種巧合遠離你的生活圈，你的人緣與財運將迎來一波大爆發。放寬心，好運即將敲門。"
+    },
+    {
+        title: "【 迎祥化煞 】",
+        poem: "清風掃拂烏雲去，<br>朗朗明月照天庭。<br>口舌是非俱消散，<br>從此安然享清平。",
+        explain: "代表目前糾纏你的流言蜚語或不公平待遇已隨烈火燃燒殆盡。保持不卑不亢的態度，對手將不攻自破，運勢轉危為安。"
+    },
+    {
+        title: "【 貴人指路 】",
+        poem: "撥開雲霧見青天，<br>指引迷途上法船。<br>莫為小人添煩惱，<br>自有神明暗助玄。",
+        explain: "莫把精力浪費在不值得的人身上。此籤暗示近期會有真正懂你的貴人出現，在工作或學業上拉你一把。專注自我，就是對小人最好的報復。"
+    },
+    {
+        title: "【 財源大發 】",
+        poem: "厄運隨風化作塵，<br>黃金萬兩入家門。<br>小人嫉妒無可奈，<br>一展宏圖震乾坤。",
+        explain: "壞運走，財運來！你的冤氣將會轉化成你錢包裡的厚度。那些曾看不起你的人，只能遠遠看著你發光發熱而無能為力。"
+    },
+    {
+        title: "【 逍遙無憂 】",
+        poem: "世事無常笑中過，<br>不將是非掛心頭。<br>一日清閒一日福，<br>逍遙自在賽神仙。",
+        explain: "最好的解厄是「不在乎」。這張籤恭喜你成功將怨念轉化為超脫。放手去享受生活的美好，吃頓大餐、睡個好覺，就是最完美的圓滿。"
+    }
+];
+</script>
+
+<script>
+// 綁定 DOM 元素
+const elVillainInput = document.getElementById('villain-name');
+const elCurseInput = document.getElementById('curse-desc');
+const elPresetContainer = document.getElementById('preset-container');
+const elBtnGenerate = document.getElementById('btn-generate');
+const elBtnStamp = document.getElementById('btn-stamp');
+const elBtnBurn = document.getElementById('btn-burn');
+const elBtnSound = document.getElementById('btn-sound');
+const elSoundIcon = document.getElementById('sound-icon');
+
+const elTalismanPaper = document.getElementById('talisman-paper');
+const elTalismanTarget = document.getElementById('talisman-target');
+const elTalismanDesc = document.getElementById('talisman-desc');
+const elTalismanOverlay = document.getElementById('talisman-overlay');
+const elTalismanStatus = document.getElementById('talisman-status');
+const elRedSeal = document.getElementById('red-seal');
+const elTalismanGlowBorder = document.getElementById('talisman-glow-border');
+
+const elDollLockOverlay = document.getElementById('doll-lock-overlay');
+const elStrawDollContainer = document.getElementById('straw-doll-container');
+const elStrawDoll = document.getElementById('straw-doll');
+const elNeedlesLayer = document.getElementById('needles-layer');
+const elEffectsLayer = document.getElementById('effects-layer');
+const elAngerCount = document.getElementById('anger-count');
+const elDollTip = document.getElementById('doll-tip');
+
+const elBurnOverlay = document.getElementById('burn-overlay');
+const elFireCanvas = document.getElementById('fire-canvas');
+const elBurnTalismanClone = document.getElementById('burn-talisman-clone');
+const elBurnDollClone = document.getElementById('burn-doll-clone');
+const elBurnPercentage = document.getElementById('burn-percentage');
+
+const elFortuneModal = document.getElementById('fortune-modal');
+const elFortuneTitle = document.getElementById('fortune-title');
+const elFortunePoem = document.getElementById('fortune-poem');
+const elFortuneExplain = document.getElementById('fortune-explain');
+const elBtnCloseFortune = document.getElementById('btn-close-fortune');
+
+const elToastMsg = document.getElementById('toast-msg');
+const elToastText = document.getElementById('toast-text');
+
+// 顯示自訂 Toast
+function showToast(text) {
+    elToastText.textContent = text;
+    elToastMsg.style.transform = 'translateY(0)';
+    elToastMsg.style.opacity = '1';
+    setTimeout(() => {
+        elToastMsg.style.transform = 'translateY(20px)';
+        elToastMsg.style.opacity = '0';
+    }, 3000);
+}
+</script>
+
+<script>
+// 初始化設定
+window.onload = function() {
+    renderPresets();
+    setupEventListeners();
+    
+    // 監聽鍵盤與手勢以配合音效解鎖
+    document.body.addEventListener('click', () => {
+        SE.init();
+    }, { once: true });
+};
+
+// 渲染範本按鈕
+function renderPresets() {
+    elPresetContainer.innerHTML = '';
+    PRESETS.forEach(preset => {
+        const btn = document.createElement('button');
+        btn.className = "text-xs py-1.5 px-2 bg-stone-900 hover:bg-stone-800 border border-stone-800 hover:border-amber-600/60 rounded-lg text-stone-300 hover:text-amber-300 transition-all text-left truncate";
+        btn.innerHTML = `<span class="text-amber-500 mr-1">👹</span>${preset.name}`;
+        btn.onclick = () => {
+            elVillainInput.value = preset.name;
+            elCurseInput.value = preset.desc;
+            SE.playWoodenFish();
+            showToast(`已召喚：${preset.name}`);
+        };
+        elPresetContainer.appendChild(btn);
+    });
+}
+
+// 綁定點擊事件與操作
+function setupEventListeners() {
+    // 聲音按鈕
+    elBtnSound.onclick = () => {
+        const isMuted = SE.toggleMute();
+        elSoundIcon.textContent = isMuted ? '🔇' : '🔊';
+        showToast(isMuted ? '神壇靜音中' : '神壇音效已開啟');
+    };
+
+    // 起符按鈕
+    elBtnGenerate.onclick = generateTalisman;
+
+    // 蓋印按鈕
+    elBtnStamp.onclick = stampTalisman;
+
+    // 針扎事件
+    elStrawDollContainer.onclick = function(e) {
+        if (!STATE.hasTalisman || !STATE.isStamped) return;
+        stabStrawDoll(e);
+    };
+
+    // 化符按鈕
+    elBtnBurn.onclick = startBurnCeremony;
+
+    // 關閉靈籤
+    elBtnCloseFortune.onclick = () => {
+        elFortuneModal.classList.add('hidden');
+        resetAltar();
+    };
+}
+</script>
+
+<script>
+// 生成符咒
+function generateTalisman() {
+    const name = elVillainInput.value.trim();
+    const desc = elCurseInput.value.trim() || '怨念退散 諸事順心';
+
+    if (!name) {
+        showToast('⚠️ 請登記怨念對象的名諱，方能起符！');
+        elVillainInput.focus();
+        return;
+    }
+
+    STATE.villainName = name;
+    STATE.curseDesc = desc;
+    STATE.hasTalisman = true;
+
+    // 播放木魚共鳴音
+    SE.playWoodenFish();
+
+    // 更新符咒紙張內容
+    elTalismanTarget.textContent = `【小人 ${name}】`;
+    elTalismanDesc.innerHTML = desc.split('').map(char => `<span>${char}</span>`).join('');
+
+    // 動態效果
+    elTalismanOverlay.classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => elTalismanOverlay.classList.add('hidden'), 500);
+
+    elTalismanPaper.classList.remove('opacity-50', 'scale-95');
+    elTalismanPaper.classList.add('opacity-100', 'scale-100');
+    elTalismanPaper.classList.add('talisman-glow');
+    elTalismanGlowBorder.classList.add('border-amber-400/30', 'shadow-[0_0_15px_rgba(245,158,11,0.2)]');
+
+    elTalismanStatus.textContent = "已顯影・未敕封";
+    elTalismanStatus.classList.remove('text-stone-500');
+    elTalismanStatus.classList.add('text-amber-500');
+
+    // 開啟蓋印按鈕
+    elBtnStamp.disabled = false;
+    elBtnStamp.classList.remove('bg-stone-900', 'text-stone-400');
+    elBtnStamp.classList.add('bg-gradient-to-r', 'from-amber-600', 'to-red-600', 'text-stone-950', 'hover:brightness-110');
+
+    showToast('📜 靈符已顯！請蓋上天尊印完成「敕封」！');
+}
+
+// 蓋印敕封
+function stampTalisman() {
+    if (!STATE.hasTalisman || STATE.isStamped) return;
+
+    STATE.isStamped = true;
+    SE.playStamp();
+
+    // 蓋章印泥顯現動畫
+    elRedSeal.classList.remove('opacity-0', 'scale-150');
+    elRedSeal.classList.add('opacity-90', 'scale-100');
+
+    elTalismanStatus.textContent = "法力灌注・已敕封";
+    elTalismanStatus.classList.remove('text-amber-500');
+    elTalismanStatus.classList.add('text-red-500');
+
+    // 禁用蓋章按鈕
+    elBtnStamp.disabled = true;
+    elBtnStamp.classList.remove('bg-gradient-to-r', 'from-amber-600', 'to-red-600', 'text-stone-950');
+    elBtnStamp.classList.add('bg-stone-950', 'text-stone-700', 'border-stone-900');
+
+    // 解鎖草人針扎
+    elDollLockOverlay.classList.add('opacity-0', 'pointer-events-none');
+    setTimeout(() => elDollLockOverlay.classList.add('hidden'), 500);
+
+    // 允許燒符
+    elBtnBurn.disabled = false;
+
+    showToast('🏮 敕封成功！草人法體已解鎖，點擊進行針扎！');
+}
+</script>
+
+<script>
+// 針扎草人
+function stabStrawDoll(e) {
+    if (STATE.angerCount >= STATE.maxAnger) {
+        showToast('⚠️ 怨氣已拉滿！草人承受力達極限，請速速化符解怨！');
+        // 草人強烈晃動
+        triggerDollShake();
+        return;
+    }
+
+    // 計算相對於容器的點擊位置比例
+    const rect = elStrawDollContainer.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    // 新增針扎狀態記錄
+    STATE.angerCount++;
+    elAngerCount.textContent = STATE.angerCount;
+
+    // 1. 播放音效
+    SE.playStab();
+
+    // 2. 觸發草人晃動動畫
+    triggerDollShake();
+
+    // 3. 渲染紅色圖釘 (針頭) 在點擊位置
+    createNeedleElement(x, y);
+
+    // 4. 生成浮空解怨文字
+    createFloatingWord(e.clientX - rect.left, e.clientY - rect.top);
+
+    // 5. 提示
+    if (STATE.angerCount === STATE.maxAnger) {
+        elDollTip.innerHTML = "🔴 怨氣已百分百宣洩！請點擊下方 <b>「化火焚燒」</b> 啟動浴火重生法會！";
+        elDollTip.classList.remove('text-stone-500');
+        elDollTip.classList.add('text-red-400', 'font-bold');
+        showToast('🔥 怨氣已完全灌注，可啟動焚化法會！');
+    }
+}
+
+// 觸發草人晃動
+function triggerDollShake() {
+    elStrawDoll.classList.add('doll-shake');
+    // 動畫結束後移除 class 方便下次點擊
+    elStrawDoll.addEventListener('animationend', () => {
+        elStrawDoll.classList.remove('doll-shake');
+    }, { once: true });
+}
+
+// 建立實體針元件
+function createNeedleElement(x, y) {
+    const needle = document.createElement('div');
+    needle.className = 'absolute w-3 h-3 bg-red-600 rounded-full border border-stone-100 shadow-md transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 scale-0';
+    needle.style.left = `${x}%`;
+    needle.style.top = `${y}%`;
+
+    // 加上針身陰影與斜線(模擬插進去的針)
+    const shaft = document.createElement('div');
+    shaft.className = 'absolute w-1 h-6 bg-stone-300 origin-top transform rotate-45';
+    shaft.style.left = '50%';
+    shaft.style.top = '50%';
+    needle.appendChild(shaft);
+
+    elNeedlesLayer.appendChild(needle);
+    
+    // 小小延遲讓 transition 生效
+    setTimeout(() => {
+        needle.classList.remove('scale-0');
+        needle.classList.add('scale-100');
+    }, 10);
+}
+
+// 浮空咒字特效
+const curseWords = ["退！", "散！", "急急如律令！", "消！", "破！", "小人退散！", "霉運走開！", "解怨！", "斬是非！", "去！"];
+function createFloatingWord(x, y) {
+    const word = document.createElement('span');
+    const randomWord = curseWords[Math.floor(Math.random() * curseWords.length)];
+    
+    word.textContent = randomWord;
+    word.className = 'absolute text-xs md:text-sm font-bold font-taoist text-red-500 select-none pointer-events-none transition-all duration-1000 opacity-100';
+    word.style.left = `${x}px`;
+    word.style.top = `${y}px`;
+    word.style.transform = `translate(-50%, -50%) scale(0.8) rotate(${(Math.random() * 40) - 20}deg)`;
+
+    elEffectsLayer.appendChild(word);
+
+    // 飛上天並淡出
+    setTimeout(() => {
+        word.style.transform = `translate(-50%, -100px) scale(1.3) rotate(${(Math.random() * 40) - 20}deg)`;
+        word.style.opacity = '0';
+    }, 20);
+
+    // 動畫結束後回收
+    setTimeout(() => {
+        word.remove();
+    }, 1000);
+}
+</script>
+
+<script>
+// 火燄粒子效果 (Canvas 繪製)
+let fireCtx;
+let fireParticles = [];
+let fireAnimFrame;
+let isBurning = false;
+
+function initFirePhysics() {
+    const canvas = elFireCanvas;
+    // 讓 Canvas 填滿容器
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = canvas.parentElement.clientHeight;
+    fireCtx = canvas.getContext('2d');
+    fireParticles = [];
+}
+
+class FireParticle {
+    constructor(canvasWidth, canvasHeight) {
+        this.x = canvasWidth / 2 + (Math.random() * 120 - 60);
+        this.y = canvasHeight - 20;
+        this.radius = Math.random() * 25 + 10;
+        // 火向上飄，隨機偏移
+        this.vx = Math.random() * 3 - 1.5;
+        this.vy = -(Math.random() * 4 + 3);
+        this.life = 1.0; // 壽命 1.0 -> 0.0
+        this.decay = Math.random() * 0.02 + 0.015;
+        
+        // 火的顏色從 黃 -> 橙 -> 紅 -> 黑
+        this.r = 255;
+        this.g = Math.floor(Math.random() * 100) + 150; // 150-250
+        this.b = 0;
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life -= this.decay;
+        this.radius -= 0.2;
+        if (this.radius < 0) this.radius = 0;
+    }
+
+    draw(ctx) {
+        if (this.life <= 0) return;
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+        grad.addColorStop(0, `rgba(${this.r}, ${this.g}, ${this.b}, ${this.life})`);
+        grad.addColorStop(0.5, `rgba(239, 68, 68, ${this.life * 0.5})`);
+        grad.addColorStop(1, `rgba(120, 11, 11, 0)`);
+        
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+// 模擬火燄主迴圈
+function drawFire() {
+    if (!isBurning) return;
+    fireCtx.clearRect(0, 0, elFireCanvas.width, elFireCanvas.height);
+
+    // 每影格生成新粒子
+    for (let i = 0; i < 6; i++) {
+        fireParticles.push(new FireParticle(elFireCanvas.width, elFireCanvas.height));
+    }
+
+    // 更新並繪製
+    for (let i = fireParticles.length - 1; i >= 0; i--) {
+        const p = fireParticles[i];
+        p.update();
+        p.draw(fireCtx);
+        if (p.life <= 0 || p.radius <= 0) {
+            fireParticles.splice(i, 1);
+        }
+    }
+
+    // 生成隨機灰燼飛舞
+    if (Math.random() < 0.2) {
+        createAshParticle();
+    }
+
+    fireAnimFrame = requestAnimationFrame(drawFire);
+}
+
+// 建立隨機飄散的灰燼 (HTML DOM 呈現，看起來更立體)
+function createAshParticle() {
+    const ash = document.createElement('div');
+    ash.className = 'ash-particle';
+    const size = Math.random() * 6 + 2;
+    ash.style.width = `${size}px`;
+    ash.style.height = `${size}px`;
+    ash.style.left = `${Math.random() * 100}%`;
+    ash.style.bottom = '10%';
+    ash.style.animationDuration = `${Math.random() * 2 + 2}s`;
+    
+    elBurnOverlay.appendChild(ash);
+    // 結束後自動回收
+    setTimeout(() => ash.remove(), 4000);
+}
+</script>
+
+<script>
+// 啟動化符焚燒儀式
+function startBurnCeremony() {
+    if (!STATE.hasTalisman || !STATE.isStamped) return;
+
+    // 1. 初始化火燄畫布
+    initFirePhysics();
+    isBurning = true;
+
+    // 2. 複製符咒與草人進入焚化爐，保留文字
+    elBurnTalismanClone.innerHTML = elTalismanPaper.innerHTML;
+    elBurnTalismanClone.className = elTalismanPaper.className + " transition-all duration-[3000ms]";
+    elBurnTalismanClone.style.transform = "scale(1)";
+    elBurnTalismanClone.style.boxShadow = "none";
+    
+    // 複製草人
+    elBurnDollClone.innerHTML = elStrawDollContainer.innerHTML;
+    elBurnDollClone.className = "relative w-[140px] h-[220px] transition-all duration-[3000ms]";
+    // 隱藏複製體中的鎖定層
+    const lock = elBurnDollClone.querySelector('#doll-lock-overlay');
+    if (lock) lock.style.display = 'none';
+
+    // 3. 顯示全螢幕焚化視窗
+    elBurnOverlay.classList.remove('hidden');
+    drawFire();
+
+    // 4. 啟動燃燒背景音效
+    const burnAudio = SE.startFireBurn();
+
+    // 5. 漸進式燃燒動畫
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 2;
+        elBurnPercentage.textContent = `焚燒進度：${progress}%`;
+
+        // 隨進度逐漸瓦解 (縮小、旋轉、黑化、消失)
+        if (progress === 30) {
+            elBurnTalismanClone.style.filter = "contrast(1.5) brightness(0.5) sepia(0.8) hue-rotate(-20deg)";
+            elBurnDollClone.style.filter = "contrast(1.5) brightness(0.5) sepia(0.8) hue-rotate(-20deg)";
+        }
+        if (progress === 60) {
+            elBurnTalismanClone.style.transform = "scale(0.8) rotate(-5deg) translateY(-20px)";
+            elBurnTalismanClone.style.opacity = "0.5";
+            elBurnTalismanClone.style.filter = "contrast(2) brightness(0.1) grayscale(1)";
+
+            elBurnDollClone.style.transform = "scale(0.8) rotate(5deg) translateY(-20px)";
+            elBurnDollClone.style.opacity = "0.5";
+            elBurnDollClone.style.filter = "contrast(2) brightness(0.1) grayscale(1)";
+        }
+        if (progress === 90) {
+            elBurnTalismanClone.style.transform = "scale(0.2) rotate(-15deg) translateY(-100px)";
+            elBurnTalismanClone.style.opacity = "0.1";
+            elBurnDollClone.style.transform = "scale(0.2) rotate(15deg) translateY(-100px)";
+            elBurnDollClone.style.opacity = "0.1";
+        }
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            
+            // 關閉燃燒音效
+            if (burnAudio) {
+                try {
+                    burnAudio.gain.gain.exponentialRampToValueAtTime(0.01, SE.ctx.currentTime + 0.5);
+                    setTimeout(() => burnAudio.source.stop(), 500);
+                } catch(e){}
+            }
+
+            // 完成，切換至靈籤
+            finishBurnCeremony();
+        }
+    }, 80);
+}
+
+// 焚化完成，發放靈籤
+function finishBurnCeremony() {
+    isBurning = false;
+    cancelAnimationFrame(fireAnimFrame);
+    
+    // 清除焚燒痕跡
+    elBurnOverlay.classList.add('hidden');
+    elBurnTalismanClone.innerHTML = '';
+    elBurnDollClone.innerHTML = '';
+
+    // 播放敲大鐘/木魚音
+    SE.playWoodenFish();
+
+    // 隨機抽選解厄靈籤
+    const randFortune = FORTUNES[Math.floor(Math.random() * FORTUNES.length)];
+    elFortuneTitle.textContent = randFortune.title;
+    elFortunePoem.innerHTML = randFortune.poem;
+    elFortuneExplain.innerHTML = randFortune.explain;
+
+    // 開啟靈籤彈出框
+    elFortuneModal.classList.remove('hidden');
+}
+
+// 恢復神壇初始狀態
+function resetAltar() {
+    STATE.villainName = '';
+    STATE.curseDesc = '';
+    STATE.hasTalisman = false;
+    STATE.isStamped = false;
+    STATE.angerCount = 0;
+    STATE.needles = [];
+
+    // 重置輸入
+    elVillainInput.value = '';
+    elCurseInput.value = '';
+
+    // 重新封鎖與隱藏
+    elTalismanOverlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+    elTalismanPaper.className = "w-[240px] h-[380px] bg-[#f9db6d] rounded-sm shadow-2xl border-2 border-[#e3bf4a] relative p-4 flex flex-col justify-between items-center scale-95 opacity-50 select-none";
+    elTalismanGlowBorder.className = "absolute inset-0 border border-amber-400/0 rounded-sm pointer-events-none";
+    elRedSeal.className = "absolute -right-2 -bottom-2 w-14 h-14 border-4 border-red-600/90 flex items-center justify-center text-red-600/90 font-bold text-[10px] transform rotate-12 rounded-sm bg-amber-200/40 select-none pointer-events-none opacity-0 transition-all duration-300 scale-150";
+    
+    elTalismanStatus.textContent = "待起符";
+    elTalismanStatus.className = "text-xs text-stone-500";
+
+    elDollLockOverlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+    elNeedlesLayer.innerHTML = '';
+    elAngerCount.textContent = '0';
+    elDollTip.innerHTML = "💡 點擊草人任意部位，即可用針刺破小人怨念 (有聲音效)";
+    elDollTip.className = "text-xs text-stone-500 mt-2 text-center";
+
+    elBtnStamp.disabled = true;
+    elBtnStamp.className = "w-full py-2 bg-stone-900 hover:bg-stone-800 disabled:opacity-40 disabled:cursor-not-allowed border border-stone-800 text-stone-400 hover:text-red-400 rounded-lg font-bold text-sm tracking-wider transition-all flex items-center justify-center gap-2";
+
+    elBtnBurn.disabled = true;
+
+    showToast('✨ 冤仇消釋，功德無量，案前已整理乾淨。');
+}
+</script>
+</body>
+</html>
